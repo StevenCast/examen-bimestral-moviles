@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PokemonService } from 'src/app/services/pokemon.service';
 
-import {doc, Firestore, setDoc, docData } from '@angular/fire/firestore';
-import {Storage, uploadString, ref, getDownloadURL} from "@angular/fire/storage"
+import {doc, Firestore, collection, docData,addDoc } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -16,7 +15,7 @@ export class PokemonListPage implements OnInit {
   pokemonDetails: any = null;
   randomImageRobot: string | null = null;
   
-  constructor(private pokemonService: PokemonService, private storage: Storage, private firestore: Firestore) {}
+  constructor(private pokemonService: PokemonService, private firestore: Firestore) {}
 
 
 
@@ -71,20 +70,31 @@ export class PokemonListPage implements OnInit {
 }
 
 
-async saveInfo(book:string, url:string){
-  const storageRef  = ref(this.storage)
-  try{
-    await uploadString(storageRef,book, "base64")
-    const imageUrl = await getDownloadURL(storageRef)
-    const setDocRef = doc(this.firestore, book);
-    await setDoc(setDocRef,{
-      url
-    })
-    return true
-  }catch(error){
-    return null
+async saveInfo(){
+    this.books.forEach((libro, index) => {
+      const robotImage = `https://robohash.org/${this.generaNss()}`;
+
+      // Crear un objeto con título e imagen
+      const data = {
+        title: libro.title,
+        image: robotImage,
+      };
+
+      // Guardar el objeto en Firestore
+      const librosCollection = collection(this.firestore, 'books');
+      addDoc(librosCollection, data)
+        .then(() => {
+          console.log('Libro guardado:', data);
+        })
+        .catch((error) => {
+          console.error('Error al guardar en Firebase:', error);
+        });
+    });
   }
-}
+
+
+
+
 
 
 

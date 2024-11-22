@@ -13,17 +13,16 @@
                [id]="'img-robot-' + generaNss()"
                style="margin-top: 10px; width: 100px; height: auto;">
       </ion-img>
-
-      <ion-button
-        style="margin-top: 10px; width: 100px; height: auto; text-align: center;"
-        (click)="saveInfo(book.title, 'img-robot-' + generaNss())"
-      >
-        guardar
-      </ion-button>
     </ion-item>
-  </ion-list>
+    </ion-list>
 
  
+  <ion-button
+        style="margin-top: 10px; width: 100px; height: auto; text-align: center;"
+        (click)="saveInfo()">
+        guardar
+    </ion-button>
+
   <ion-spinner *ngIf="loading" class="loading-spinner"></ion-spinner>
 
 </ion-content>
