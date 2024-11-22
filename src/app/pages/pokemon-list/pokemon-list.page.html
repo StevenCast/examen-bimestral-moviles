@@ -2,18 +2,19 @@
 
 <ion-header>
   <ion-toolbar>
-    <ion-title>Pokémon List</ion-title>
+    <ion-title>Books List</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <!-- <ion-searchbar [debounce]="1000" (ionInput)="handleBusqueda($event)" id="buscarPokemon"></ion-searchbar> -->
-  
-  <!-- Lista de Pokémons filtrados -->
   <ion-list>
     <ion-item *ngFor="let book of filteredBooks">
       <ion-label>{{ book.title | titlecase }}</ion-label>
-      <ion-img [src]="https://robohash.org/{generaNss()}"></ion-img>
+      <ion-img [src]="'https://robohash.org/' + generaNss()"
+      alt="img-robot"
+      style="margin-top: 10px; width: 100px; height: auto;"
+      ></ion-img>
+
     </ion-item>
 
 
@@ -23,32 +24,5 @@
 
   <!-- Spinner de carga -->
   <ion-spinner *ngIf="loading" class="loading-spinner"></ion-spinner>
-
-  <!-- Detalles del Pokémon -->
-  <ion-card *ngIf="pokemonDetails">
-    <ion-card-header>
-      <ion-card-title>{{ pokemonDetails.name | titlecase }}</ion-card-title>
-      <ion-card-subtitle><strong>ID:</strong> {{ pokemonDetails.id }}</ion-card-subtitle>
-    </ion-card-header>
-
-    <ion-card-content>
-      <!-- Imagen del Pokémon -->
-      <ion-img [src]="pokemonDetails?.sprites?.front_default" alt="{{ pokemonDetails.name }}" weight="50"></ion-img>
-      
-      <!-- Detalles adicionales -->
-      <div class="pokemon-stats">
-        <p><strong>Height:</strong> {{ pokemonDetails.height }} </p>
-        <p><strong>Weight:</strong> {{ pokemonDetails.weight }} </p>
-      </div>
-
-      <!-- Habilidades -->
-      <ion-list>
-        <p><strong>Habilidades</strong></p>
-        <ion-item *ngFor="let ability of pokemonDetails.abilities">
-          <ion-label>- {{ ability.ability.name | titlecase }}</ion-label>
-        </ion-item>
-      </ion-list>
-    </ion-card-content>
-  </ion-card>
 
 </ion-content>

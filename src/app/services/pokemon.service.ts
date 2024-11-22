@@ -7,7 +7,6 @@ import { Observable } from 'rxjs';
 })
 export class PokemonService {
   private apiUrl = 'https://gutendex.com';
-  private dogApiUrl = 'https://dog.ceo/api/breed'
   private robotUrl = 'https://robohash.org'
 
   constructor(private http: HttpClient) {}
@@ -19,17 +18,19 @@ export class PokemonService {
   }
 
 
-  // Obtener detalles de un Pokémon por nombre o ID
-  getImageDog(name: string): Observable<any> {
-    return this.http.get(`${this.dogApiUrl}/${name}/images/random`);
+  getImageRobot(): Observable<any> {
+    const random = this.generaNss
+    return this.http.get(`${this.robotUrl}/${random}`);
   }
 
-
-  getImageRobot(name:(string)): Observable<any> {
-    return this.http.get(`${this.robotUrl}/${name}`);
-  }
-
-  
-
+  private generaNss() {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const charactersLength = characters.length;
+    for (let i = 0; i < charactersLength; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
 
 }
