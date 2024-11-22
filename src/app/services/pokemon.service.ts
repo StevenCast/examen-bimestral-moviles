@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Firestore } from '@angular/fire/firestore';
+import {Storage} from "@angular/fire/storage"
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +11,7 @@ export class PokemonService {
   private apiUrl = 'https://gutendex.com';
   private robotUrl = 'https://robohash.org'
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private firestore: Firestore) {}
 
   // Obtener la lista de Pokémon
   getBooks(): Observable<any> {
@@ -31,6 +33,12 @@ export class PokemonService {
         result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     return result;
-}
+  }
+
+
+ 
+
+
+
 
 }

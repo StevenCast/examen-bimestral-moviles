@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { PokemonService } from 'src/app/services/pokemon.service';
 
+import {doc, Firestore, setDoc, docData } from '@angular/fire/firestore';
+import {Storage, uploadString, ref, getDownloadURL} from "@angular/fire/storage"
+
 @Component({
   selector: 'app-pokemon-list',
   templateUrl: './pokemon-list.page.html',
@@ -13,7 +16,7 @@ export class PokemonListPage implements OnInit {
   pokemonDetails: any = null;
   randomImageRobot: string | null = null;
   
-  constructor(private pokemonService: PokemonService) {}
+  constructor(private pokemonService: PokemonService, private storage: Storage, private firestore: Firestore) {}
 
 
 
@@ -65,6 +68,22 @@ export class PokemonListPage implements OnInit {
         result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     return result;
+}
+
+
+async saveInfo(book:string, url:string){
+  const storageRef  = ref(this.storage)
+  try{
+    await uploadString(storageRef,book, "base64")
+    const imageUrl = await getDownloadURL(storageRef)
+    const setDocRef = doc(this.firestore, book);
+    await setDoc(setDocRef,{
+      url
+    })
+    return true
+  }catch(error){
+    return null
+  }
 }
 
 

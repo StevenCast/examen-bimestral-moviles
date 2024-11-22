@@ -11,16 +11,16 @@
     <ion-item *ngFor="let book of filteredBooks">
       <ion-label>{{ book.title | titlecase }}</ion-label>
       <ion-img [src]="'https://robohash.org/' + generaNss()"
-      alt="img-robot"
+      alt="img-robot" id="img-robot"
       style="margin-top: 10px; width: 100px; height: auto;"
       ></ion-img>
-
     </ion-item>
-
-
-
-
+    <ion-button
+    style="margin-top: 10px; width: 100px; height: auto; text-align: center;"
+    (click)="saveInfo(book.title, img-robot)"
+    >guardar</ion-button>
   </ion-list>
+
 
   <!-- Spinner de carga -->
   <ion-spinner *ngIf="loading" class="loading-spinner"></ion-spinner>
