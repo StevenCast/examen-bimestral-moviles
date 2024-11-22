@@ -1,5 +1,3 @@
-
-
 <ion-header>
   <ion-toolbar>
     <ion-title>Books List</ion-title>
@@ -11,18 +9,21 @@
     <ion-item *ngFor="let book of filteredBooks">
       <ion-label>{{ book.title | titlecase }}</ion-label>
       <ion-img [src]="'https://robohash.org/' + generaNss()"
-      alt="img-robot" id="img-robot"
-      style="margin-top: 10px; width: 100px; height: auto;"
-      ></ion-img>
+               alt="img-robot" 
+               [id]="'img-robot-' + generaNss()"
+               style="margin-top: 10px; width: 100px; height: auto;">
+      </ion-img>
+
+      <ion-button
+        style="margin-top: 10px; width: 100px; height: auto; text-align: center;"
+        (click)="saveInfo(book.title, 'img-robot-' + generaNss())"
+      >
+        guardar
+      </ion-button>
     </ion-item>
-    <ion-button
-    style="margin-top: 10px; width: 100px; height: auto; text-align: center;"
-    (click)="saveInfo(book.title, img-robot)"
-    >guardar</ion-button>
   </ion-list>
 
-
-  <!-- Spinner de carga -->
+ 
   <ion-spinner *ngIf="loading" class="loading-spinner"></ion-spinner>
 
 </ion-content>
