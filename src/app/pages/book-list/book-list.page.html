@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Books List</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let book of filteredBooks; let i = index" class="book-item">
+      <ion-label class="book-title">{{ book.title | titlecase }}</ion-label>
+      <ion-img [src]="book.robotImage" alt="img-robot" class="robot-image"></ion-img>
+    </ion-item>
+  </ion-list>
+
+  <div class="button-container">
+    <ion-button expand="block" color="success" (click)="saveInfo()">Guardar</ion-button>
+  </div>
+
+  <div class="spinner-container" *ngIf="loading">
+    <ion-spinner name="crescent" class="loading-spinner"></ion-spinner>
+  </div>
+</ion-content>
